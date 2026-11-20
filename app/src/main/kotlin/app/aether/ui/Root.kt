@@ -400,7 +400,7 @@ private fun RisingWordmark(rise: Animatable<Float, *>, target: Rect) {
 @Composable
 private fun Warmup() {
     val context = LocalContext.current
-    val art = remember { Artwork.single("android.resource://${context.packageName}/${R.drawable.art_statue_naduu}", 493, 740) }
+    val art = remember { Artwork.single("android.resource://${context.packageName}/${R.drawable.art_earth}", 493, 740) }
     GlassHost(Modifier.size(160.dp).graphicsLayer { alpha = 0.004f }, content = {
         TreatedArtwork(art, ArtTreatment.Halftone(), Modifier.fillMaxSize(), sizeHintPx = 200)
     }, overlay = {

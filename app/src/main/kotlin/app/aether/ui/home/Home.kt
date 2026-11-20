@@ -126,18 +126,7 @@ import androidx.compose.foundation.layout.size
 
 /** The figures behind Listen, each held a while before the next comes up. */
 private val Statues = listOf(
-    R.drawable.art_statue_naduu,
-    R.drawable.art_god_zeus,
-    R.drawable.art_god_hera,
-    R.drawable.art_god_apollo,
-    R.drawable.art_god_nike,
-    R.drawable.art_god_smyrna,
-    R.drawable.art_god_artemis,
-    R.drawable.art_god_poseidon,
-    R.drawable.art_god_athena,
-    R.drawable.art_god_hermes,
-    R.drawable.art_god_aphrodite,
-    R.drawable.art_god_dionysus,
+    R.drawable.art_earth,
 )
 /** How long each figure is on show before the next may come: time Listen is seen, not time away. */
 private const val StatueHoldMs = 9_000L
