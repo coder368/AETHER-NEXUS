@@ -20,7 +20,7 @@
         android:name=".AetherApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="AETHER"
+        android:label="NADUU"
         android:supportsRtl="true"
         android:theme="@style/Theme.Aether">
 

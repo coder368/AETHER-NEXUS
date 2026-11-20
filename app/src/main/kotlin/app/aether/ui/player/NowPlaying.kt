@@ -236,6 +236,9 @@ fun NowPlaying(player: DragState, onClose: () -> Unit, menu: (@Composable () -> 
     val playingVideo = track.isVideo
     val lyrics = rememberLyrics(track, fetch = shown && !playingVideo)
     LaunchedEffect(playingVideo) { if (playingVideo && lyricsPane.visible) lyricsPane.hide() }
+    // Lyrics owns the full-screen vertical gesture. Without this handoff, the outer Now Playing
+    // surface can also consume the same swipe and pull itself back over the lyrics as they dismiss.
+    SideEffect { player.gestureBlocked = lyricsPane.visible }
     // Closed, it comes back as it always has: no words and no Up next left open under it.
     LaunchedEffect(shown) {
         if (!shown) {
@@ -1443,4 +1446,3 @@ private fun QueueRow(
         }
     }
 }
-

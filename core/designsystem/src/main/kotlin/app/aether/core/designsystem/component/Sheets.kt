@@ -94,6 +94,9 @@ class DragState internal constructor(
     var holding by mutableStateOf(false)
         private set
 
+    /** Another full-screen pane owns the vertical gesture, such as lyrics over Now Playing. */
+    var gestureBlocked by mutableStateOf(false)
+
     /** How far a full open is, in pixels: the sheet's height, or the screen's for Now Playing. */
     var travelPx by mutableFloatStateOf(1f)
 
@@ -241,9 +244,10 @@ fun Modifier.dragsOpen(state: DragState): Modifier = this.pointerInput(state) {
     val tracker = VelocityTracker()
     detectVerticalDragGestures(
         onDragStart = { tracker.resetTracking() },
-        onDragEnd = { state.settle(tracker.calculateVelocity().y) },
-        onDragCancel = { state.settle(0f) },
+        onDragEnd = { if (!state.gestureBlocked) state.settle(tracker.calculateVelocity().y) },
+        onDragCancel = { if (!state.gestureBlocked) state.settle(0f) },
     ) { change, dy ->
+        if (state.gestureBlocked) return@detectVerticalDragGestures
         change.consume()
         tracker.addPosition(change.uptimeMillis, change.position)
         state.dragBy(dy)
