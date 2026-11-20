@@ -149,7 +149,7 @@ fun ArtistHero(page: ArtistPage) {
         }
         if (portrait != null) {
             Box(Modifier.fillMaxSize().placedWhile { !filmCovers }.graphicsLayer { alpha = portraitUp.value }) {
-                TreatedArtwork(portrait, FilmPrint, Modifier.fillMaxSize(), sizeHintPx = PortraitPx)
+                TreatedArtwork(portrait, ArtTreatment.Ascii(cellDp = 4.2f, contrast = 1.18f), Modifier.fillMaxSize(), sizeHintPx = PortraitPx)
             }
         }
         // Started once the page has arrived, so that making a player never touches its slide.

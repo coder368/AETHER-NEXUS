@@ -340,11 +340,13 @@ class PlaybackService : MediaLibraryService() {
     override fun onGetSession(controllerInfo: MediaSession.ControllerInfo): MediaLibrarySession? = session
 
     override fun onTaskRemoved(rootIntent: Intent?) {
-        // Closing the app while music plays keeps it playing; with nothing playing, the service goes.
-        if (!speaker.playWhenReady || player.mediaItemCount == 0) {
-            saveNow()
-            stopSelf()
-        }
+        // A task swipe is an explicit request to leave: do not leave a foreground media service
+        // behind to make Android report NADUU as an active app. The queue is saved before stopping,
+        // so the next launch can restore it without keeping audio or a notification alive here.
+        saveNow()
+        speaker.pause()
+        speaker.stop()
+        stopSelf()
     }
 
     override fun onDestroy() {

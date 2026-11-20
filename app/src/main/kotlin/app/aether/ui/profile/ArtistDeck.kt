@@ -240,7 +240,7 @@ private fun ArtistFace(a: ArtistStat, rank: Int, of: Int, faces: Faces) {
     val face by produceState(faces.cached(a), a.name) { value = faces.of(a) }
     Box(Modifier.fillMaxSize().clip(Corners.Large).background(Ink.Coal)) {
         val picture = face?.picture ?: Artwork.None
-        if (!picture.isEmpty) TreatedArtwork(picture, ArtTreatment.Monochrome(contrast = 1.14f, grain = 0f), Modifier.fillMaxSize(), sizeHintPx = 1080)
+        if (!picture.isEmpty) TreatedArtwork(picture, ArtTreatment.Ascii(cellDp = 4.2f, contrast = 1.18f), Modifier.fillMaxSize(), sizeHintPx = 1080)
         Box(Modifier.fillMaxSize().background(Brush.verticalGradient(0f to Color.Black.copy(alpha = 0.34f), 0.2f to Color.Transparent, 0.52f to Color.Transparent, 1f to Color.Black.copy(alpha = 0.94f))))
         Strapline("Nº ${rank + 1} of $of", Modifier.align(Alignment.TopStart).padding(18.dp), color = Color.White)
         Column(Modifier.align(Alignment.BottomStart).fillMaxWidth().padding(horizontal = 20.dp, vertical = 20.dp)) {
