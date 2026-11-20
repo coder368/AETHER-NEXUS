@@ -246,9 +246,14 @@ object Pull {
 /**
  * Vertical drags on this element move [state] with the finger, and a release lands it, flicks
  * included (velocity from Compose's tracker, which reads the last 100 ms of the finger). Give it to
- * whatever a sheet is pulled from, and to the sheet itself.
+ * whatever a sheet is pulled from, and to the sheet itself. [onPriorityDownward] is called once when
+ * the optional priority recognizer captures a downward drag, before the first drag delta is applied.
  */
-fun Modifier.dragsOpen(state: DragState, prioritizeDownward: Boolean = false): Modifier = this.pointerInput(state, prioritizeDownward) {
+fun Modifier.dragsOpen(
+    state: DragState,
+    prioritizeDownward: Boolean = false,
+    onPriorityDownward: () -> Unit = {},
+): Modifier = this.pointerInput(state, prioritizeDownward) {
     if (!prioritizeDownward) {
         val tracker = VelocityTracker()
         detectVerticalDragGestures(
@@ -286,7 +291,10 @@ fun Modifier.dragsOpen(state: DragState, prioritizeDownward: Boolean = false): M
             if (!draggingDown && maxOf(abs(totalX), abs(totalY)) > viewConfiguration.touchSlop) {
                 if (totalY <= 0f || abs(totalX) > abs(totalY)) return@awaitEachGesture
                 draggingDown = true
-                if (!state.gestureBlocked) state.dragBy(totalY)
+                if (!state.gestureBlocked) {
+                    onPriorityDownward()
+                    state.dragBy(totalY)
+                }
             } else if (draggingDown && !state.gestureBlocked) {
                 change.consume()
                 state.dragBy(delta.y)

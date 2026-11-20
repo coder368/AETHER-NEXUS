@@ -384,7 +384,21 @@ fun NowPlaying(player: DragState, onClose: () -> Unit, menu: (@Composable () -> 
                 )
             },
             overlay = {
-              Box(Modifier.fillMaxSize().graphicsLayer { alpha = if (hidden()) 0f else 1f }) {
+              Box(
+                  Modifier
+                      .fillMaxSize()
+                      .graphicsLayer {
+                          val lyricsReveal = lyricsPane.value.coerceIn(0f, 1f)
+                          val songReveal = 1f - lyricsReveal
+                          val baseAlpha = if (hidden()) 0f else 1f
+                          // The song plane grows back under the lyrics as they recede, restoring the
+                          // old zoom exchange without affecting the sheet's touch geometry.
+                          alpha = baseAlpha * (0.94f + 0.06f * songReveal)
+                          scaleX = 0.95f + 0.05f * songReveal
+                          scaleY = scaleX
+                          transformOrigin = TransformOrigin.Center
+                      },
+              ) {
                // Its top, where it stands: it comes in once the island has room for it.
                Box(Modifier.fillMaxSize().bloom(window, player)) {
                 // The grabber: Now Playing is pulled down to go, or touched here.
@@ -475,9 +489,22 @@ fun NowPlaying(player: DragState, onClose: () -> Unit, menu: (@Composable () -> 
                     Box(
                         Modifier
                             .fillMaxSize()
-                            .graphicsLayer { translationY = (1f - lyricsPane.value.coerceIn(0f, 1f)) * screen }
+                            .graphicsLayer {
+                                val reveal = lyricsPane.value.coerceIn(0f, 1f)
+                                translationY = (1f - reveal) * screen
+                                // A receding lyrics plane: the original motion was a depth exchange,
+                                // not just a vertical sheet dismissal.
+                                scaleX = 0.9f + 0.1f * reveal
+                                scaleY = scaleX
+                                alpha = reveal
+                                transformOrigin = TransformOrigin.Center
+                            }
                             .nestedScroll(lyricsScroll)
-                            .dragsOpen(lyricsPane, prioritizeDownward = true),
+                            .dragsOpen(
+                                lyricsPane,
+                                prioritizeDownward = true,
+                                onPriorityDownward = { haptics.strong() },
+                            ),
                     ) { LyricsStage(track, lyricsPane, lyricsFollowing) }
                 }
             },
