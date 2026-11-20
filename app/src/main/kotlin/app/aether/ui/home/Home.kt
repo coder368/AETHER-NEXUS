@@ -126,7 +126,7 @@ import androidx.compose.foundation.layout.size
 
 /** The figures behind Listen, each held a while before the next comes up. */
 private val Statues = listOf(
-    R.drawable.art_statue,
+    R.drawable.art_statue_naduu,
     R.drawable.art_god_zeus,
     R.drawable.art_god_hera,
     R.drawable.art_god_apollo,
