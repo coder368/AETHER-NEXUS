@@ -340,6 +340,13 @@ class PlaybackService : MediaLibraryService() {
 
     override fun onGetSession(controllerInfo: MediaSession.ControllerInfo): MediaLibrarySession? = session
 
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        // Media3's default returns START_STICKY for a null restart intent. That can recreate this
+        // service after a Recents swipe, making NADUU reappear as an active background app.
+        super.onStartCommand(intent, flags, startId)
+        return START_NOT_STICKY
+    }
+
     override fun onTaskRemoved(rootIntent: Intent?) {
         // Keep stopWithTask unset for this service: Android must deliver this callback so the player,
         // helper peer, notification, and service all shut down together on a Recents swipe.
