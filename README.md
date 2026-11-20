@@ -1,4 +1,4 @@
-<h1 align="center">AETHER</h1>
+<h1 align="center">NADUU</h1>
 
 <p align="center">
 <b>A premium music player for Android.</b><br>
