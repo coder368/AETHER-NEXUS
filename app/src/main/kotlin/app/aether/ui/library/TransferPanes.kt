@@ -66,7 +66,7 @@ import app.aether.ui.common.LocalContainer
 import kotlinx.coroutines.launch
 
 /**
- * Bringing playlists in, on a pane of glass: from a file (AETHER's own, M3U, CSV, a list of songs,
+ * Bringing playlists in, on a pane of glass: from a file (NADUU's own, M3U, CSV, a list of songs,
  * Spotify's data download) or a public playlist's link (Spotify, Apple Music). While it runs, how far
  * it's got; when it's done, what came in and where, and what couldn't be found. Closing the pane
  * doesn't stop it; the shell says when it ends.
@@ -120,7 +120,7 @@ private fun Choose(onFile: () -> Unit, onLink: (String) -> Unit) {
     GlassButton("Choose a file", onClick = onFile)
     Spacer(Modifier.height(12.dp))
     Txt(
-        "AETHER's own, M3U, CSV (Exportify's too) or a list of songs; or Spotify's data download, which has every playlist whole and your liked songs.",
+        "NADUU's own, M3U, CSV (Exportify's too) or a list of songs; or Spotify's data download, which has every playlist whole and your liked songs.",
         Type.Meta,
         color = Ink.Grey,
         align = TextAlign.Center,
@@ -270,7 +270,7 @@ private fun count(n: Int, what: String) = if (n == 1) "1 $what" else "$n ${what}
 private const val MISSING_SHOWN = 60
 
 /**
- * One playlist written out, the way chosen: AETHER's own file (whole, for any AETHER), an M3U8 (other
+ * One playlist written out, the way chosen: NADUU's own file (whole, for any NADUU), an M3U8 (other
  * players) or a CSV (a spreadsheet). Android asks where it goes.
  */
 @Composable

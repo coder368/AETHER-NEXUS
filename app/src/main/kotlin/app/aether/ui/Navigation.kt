@@ -17,7 +17,7 @@ import app.aether.core.model.Destination
 import app.aether.core.model.MediaId
 import kotlin.math.abs
 
-/** Every place in AETHER. Keys keep each place's scroll and state while it's in a stack. */
+/** Every place in NADUU. Keys keep each place's scroll and state while it's in a stack. */
 sealed interface Route {
     val key: String
 

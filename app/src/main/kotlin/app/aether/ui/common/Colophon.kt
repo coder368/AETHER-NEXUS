@@ -28,7 +28,7 @@ import app.aether.core.designsystem.theme.Ink
 import app.aether.core.designsystem.theme.Type
 
 /**
- * The end of every page: AETHER's cross of light and its name, and just beneath them the Earth at
+ * The end of every page: NADUU's cross of light and its name, and just beneath them the Earth at
  * night in black and white, its horizon lit. The page ends on the city lights themselves, with no
  * black beneath: by the time you reach it you've been reading down, so the dock has folded low and
  * floats over the lights, the horizon clear above it.

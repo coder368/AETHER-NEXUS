@@ -53,7 +53,7 @@ import app.aether.ui.detail.BackLine
 import app.aether.ui.library.rememberPhoneMusic
 
 /**
- * Which of the phone's folders AETHER reads, one level at a time. A folder with nothing but songs in
+ * Which of the phone's folders NADUU reads, one level at a time. A folder with nothing but songs in
  * it has a switch. A folder with others inside has the square, which chooses it with everything in
  * it, and opens on the rest of its row; the square can show that only part of it is read.
  */
@@ -85,7 +85,7 @@ fun MusicFoldersScreen(path: String) {
             !music.allowed -> item {
                 Notice(
                     "Your own music",
-                    if (music.asked) "Allow AETHER to read your audio in the phone's settings, under Apps." else "AETHER needs permission to read your audio before it can show your folders.",
+                    if (music.asked) "Allow NADUU to read your audio in the phone's settings, under Apps." else "NADUU needs permission to read your audio before it can show your folders.",
                     action = if (music.asked) null else "Allow",
                     onAction = music.ask,
                 )

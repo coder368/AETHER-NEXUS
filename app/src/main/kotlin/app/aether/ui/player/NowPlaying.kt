@@ -546,7 +546,7 @@ private class Stage(w: Dp, h: Dp, top: Dp, bottom: Dp) {
 }
 
 /**
- * The song's name as every name in AETHER is set (the grotesk's capitals, as on Listen and in the
+ * The song's name as every name in NADUU is set (the grotesk's capitals, as on Listen and in the
  * mini player), on one line; what qualifies it ("From GTA VI: Original Score", "feat. King
  * Princess") in the serif, small and grey, beneath; who made it (a way to them); and what the
  * decoder measured. A line too long for the screen drifts slowly sideways, fading at its edges.
@@ -755,7 +755,7 @@ private fun RingControls(
 
 /**
  * The format the decoder measured, never what a source claimed, as Now Playing says it (and a TV
- * showing AETHER, which is sent the same words). Nothing when unknown.
+ * showing NADUU, which is sent the same words). Nothing when unknown.
  */
 internal fun quality(heard: HeardFormat?): String? {
     heard ?: return null
@@ -1026,7 +1026,7 @@ private fun Microtype(lines: List<String>, modifier: Modifier) {
 
 /** What the tattoo says: the house and the song's place, its words where it has them, its name. */
 private fun microtype(track: Track, state: PlaybackState, lyrics: Load<Lyrics?>): List<String> {
-    val head = listOf("AETHER", "N\u00ba ${state.index + 1}", track.year?.toString() ?: (track.album?.title ?: ""), quality(state.heard)?.substringBefore("   ") ?: "")
+    val head = listOf("NADUU", "N\u00ba ${state.index + 1}", track.year?.toString() ?: (track.album?.title ?: ""), quality(state.heard)?.substringBefore("   ") ?: "")
     val words = (lyrics as? Load.Ready)?.value?.text?.lines()?.map { it.trim() }?.filter { it.isNotEmpty() && it.length < 40 }?.distinct()?.take(9)
     val middle = words ?: listOfNotNull(track.artistLine, track.album?.title, track.durationMs?.let { clock(it) }, track.plays, if (track.explicit) "Explicit" else null)
     val tail = listOf(track.title, track.artists.firstOrNull()?.name ?: "", track.durationMs?.let { clock(it) } ?: "")

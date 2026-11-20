@@ -1,5 +1,5 @@
 // Ported from BitChord's lyric line model (shared/data/lyrics/LyricLine.kt, GPL-3.0): the arithmetic of
-// the sweep, the lift and the letter-by-letter swell, unchanged; built from AETHER's own lyrics.
+// the sweep, the lift and the letter-by-letter swell, unchanged; built from NADUU's own lyrics.
 package app.aether.ui.lyrics
 
 import app.aether.core.lyrics.LyricsLine
@@ -145,7 +145,7 @@ internal class VLine(
 
     companion object {
         /**
-         * AETHER's lines as Verse draws them, with BitChord's breaks: a break the words mark themselves
+         * NADUU's lines as Verse draws them, with BitChord's breaks: a break the words mark themselves
          * (a bare stamp) is kept where it's at least [MIN_GAP_MS] long, and one is marked wherever a
          * line that says when it ends is followed by that much silence, and before a long intro.
          */

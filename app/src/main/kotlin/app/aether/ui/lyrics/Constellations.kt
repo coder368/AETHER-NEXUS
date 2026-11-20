@@ -103,7 +103,7 @@ private fun rememberWords(track: Track): Words {
 
 /**
  * Lyrics as constellations (the listener's reference). Each line of the song is a constellation in a
- * night sky: as each word is sung its star (AETHER's cross of light) blooms, its word rising large
+ * night sky: as each word is sung its star (NADUU's cross of light) blooms, its word rising large
  * and glowing, joined to the last by a hairline that draws itself across; once sung it settles to a
  * small word beside its star. When the line ends the camera drifts across the sky to where the next
  * line forms, on a slow elastic spring, drawing back a little while it travels and settling in as
@@ -191,7 +191,7 @@ fun LyricsStage(track: Track, pane: DragState, following: androidx.compose.runti
         }
         val credit = when (words) {
             is Words.Timed -> "Words: ${words.credit}" + when {
-                words.estimated -> "  ·  timed by AETHER"
+                words.estimated -> "  ·  timed by NADUU"
                 words.lines.any { it.words.isNotEmpty() } -> "  ·  word by word"
                 else -> ""
             }
@@ -285,7 +285,7 @@ private val DimSpring = FluidSpring(0.95f, 1f)
 
 /**
  * The sky's two lights, each drawn once into a small picture and then stamped wherever it's needed:
- * AETHER's cross of light for every star, and a soft round glow for the light around a sung word.
+ * NADUU's cross of light for every star, and a soft round glow for the light around a sung word.
  * Drawn fresh, a cross is nine gradients; a line of stars with three behind it was hundreds of new
  * gradients every frame, and the pauses to clear them away fell just as words appeared.
  */

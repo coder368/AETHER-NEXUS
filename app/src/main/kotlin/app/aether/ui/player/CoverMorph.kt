@@ -124,7 +124,7 @@ private fun CoverMorph34(
             withContext(Dispatchers.Default) {
                 DotMorph.build(first, next, size.width, size.height, CoverDotDp * density, CoverAngle, CoverContrast, density, colour = colour)
             }
-        }.onFailure { Log.w("AETHER", "cover morph unavailable", it) }.getOrNull()
+        }.onFailure { Log.w("NADUU", "cover morph unavailable", it) }.getOrNull()
             ?.also { made.value = Made(from, to, colour, size, it) }
     }
 

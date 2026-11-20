@@ -209,8 +209,8 @@ fun AetherRoot(container: Container, playBoot: Boolean, systemReducesMotion: Boo
 /**
  * The film becoming the corner capsule, in two movements. First the screen draws in around the
  * wordmark, as the Dynamic Island takes something in, until the film is a capsule of black holding
- * AETHER with the rooms showing all round it. Then the capsule travels to the corner, narrowing to
- * the capsule's size and settling with a little give; on the way AETHER gives way to the cross of
+ * NADUU with the rooms showing all round it. Then the capsule travels to the corner, narrowing to
+ * the capsule's size and settling with a little give; on the way NADUU gives way to the cross of
  * light and the day, and the black to glass, until it is the capsule, which takes over.
  */
 @Composable

@@ -73,7 +73,7 @@ import app.aether.ui.common.NameDialog
 
 /**
  * Settings, set like the back pages of a magazine rather than a form: numbered heads in spaced
- * capitals over a hairline; each setting named as everything in AETHER is named (the grotesk's
+ * capitals over a hairline; each setting named as everything in NADUU is named (the grotesk's
  * capitals) with its reason beneath in the serif; and every control a key of the tab bar's glass,
  * a choice marked by the bar's lit drop sliding to it.
  */
@@ -83,7 +83,7 @@ fun SettingsScreen() {
     val settings = container.settings
     val scope = rememberCoroutineScope()
     var importing by remember { mutableStateOf(false) }
-    // Every playlist and the liked songs in one AETHER file, wherever the listener puts it.
+    // Every playlist and the liked songs in one NADUU file, wherever the listener puts it.
     val notes = LocalActions.current.keep
     val exportAll = androidx.activity.compose.rememberLauncherForActivityResult(androidx.activity.result.contract.ActivityResultContracts.CreateDocument("application/json")) { uri ->
         if (uri != null) scope.launch {
@@ -142,7 +142,7 @@ fun SettingsScreen() {
             Column(Modifier.fillMaxWidth().padding(horizontal = Space.edge + 12.dp).padding(top = 8.dp), horizontalAlignment = Alignment.CenterHorizontally) {
                 Txt("Settings", Type.Monument, align = TextAlign.Center)
                 Spacer(Modifier.height(14.dp))
-                Txt("How AETHER sounds, how it moves, and what it keeps.", Type.Aside, color = Ink.Grey, align = TextAlign.Center)
+                Txt("How NADUU sounds, how it moves, and what it keeps.", Type.Aside, color = Ink.Grey, align = TextAlign.Center)
             }
         }
         item {
@@ -151,7 +151,7 @@ fun SettingsScreen() {
                     Words(
                         "YouTube Music",
                         if (session != null) "Signed in. Home, your library and mixes are your own."
-                        else "Sign in on Google's own page for your Home, library and mixes. AETHER never sees your password.",
+                        else "Sign in on Google's own page for your Home, library and mixes. NADUU never sees your password.",
                         Modifier.weight(1f),
                     )
                     Spacer(Modifier.width(18.dp))
@@ -171,7 +171,7 @@ fun SettingsScreen() {
             Section("II", "Sources") {
                 Words(
                     "Your own sources",
-                    "Add a source by its address: your own server, or a library that speaks the addon protocol BitChord and LastWave use. For a song from YouTube Music, your sources are asked first for an exact copy (the same recording, the same length); the first that has one plays it, lossless when it is, and YouTube Music plays whatever they don't have. AETHER plays open media only, and ships no sources.",
+                    "Add a source by its address: your own server, or a library that speaks the addon protocol BitChord and LastWave use. For a song from YouTube Music, your sources are asked first for an exact copy (the same recording, the same length); the first that has one plays it, lossless when it is, and YouTube Music plays whatever they don't have. NADUU plays open media only, and ships no sources.",
                     Modifier.padding(vertical = 18.dp),
                 )
                 val output by container.losslessOutput.state.collectAsStateWithLifecycle()
@@ -198,7 +198,7 @@ fun SettingsScreen() {
                     Words(
                         "Music folders",
                         phoneFolders?.let { f -> songsIncluded(f, phoneChoice).let { n -> "${songCount(n)} from the folders you've chosen. Voice notes and other apps' audio are left out unless you add them." } }
-                            ?: "Choose which of the phone's folders AETHER reads. They show on Listen, under On this phone.",
+                            ?: "Choose which of the phone's folders NADUU reads. They show on Listen, under On this phone.",
                         Modifier.weight(1f),
                     )
                     Spacer(Modifier.width(18.dp))
@@ -208,7 +208,7 @@ fun SettingsScreen() {
                 Row(Modifier.fillMaxWidth().padding(vertical = 18.dp), verticalAlignment = Alignment.CenterVertically) {
                     Words(
                         "Lyrics files",
-                        if (lyricsFolders.isEmpty()) "A song's words are read from its own file. To read .lrc files beside your songs (Song.lrc for Song.flac), let AETHER read the folder they're in."
+                        if (lyricsFolders.isEmpty()) "A song's words are read from its own file. To read .lrc files beside your songs (Song.lrc for Song.flac), let NADUU read the folder they're in."
                         else "The .lrc files in ${lyricsFolders.joinToString { folderName(it) }}, for the songs beside them, and the words inside every song's own file.",
                         Modifier.weight(1f),
                     )
@@ -303,10 +303,10 @@ fun SettingsScreen() {
                     "Lyrics in another script are given in Latin letters too: Korean as it's said, Chinese in pinyin, Japanese where it's in kana, and the rest. Worked out on the phone; nothing is sent. The Latin key on the lyrics turns it off and on.",
                     romanise,
                 ) { settings.setRomanise(!romanise) }
-                // Only for a TV that shows AETHER's own screen: Google's standard player shows no words.
+                // Only for a TV that shows NADUU's own screen: Google's standard player shows no words.
                 if (app.aether.cast.CastOptions.ownReceiver(context)) Toggle(
                     "Lyrics on the TV",
-                    "Casting to a TV that shows AETHER's own screen, the words come up full screen there with the song, as they're sung, the song's name above them and where the words are from below. Off, the TV opens on the song. Either way, the OK key on the TV's remote turns them on and off.",
+                    "Casting to a TV that shows NADUU's own screen, the words come up full screen there with the song, as they're sung, the song's name above them and where the words are from below. Off, the TV opens on the song. Either way, the OK key on the TV's remote turns them on and off.",
                     castLyrics,
                 ) { settings.setCastLyrics(!castLyrics) }
                 Toggle(
@@ -337,7 +337,7 @@ fun SettingsScreen() {
                 Row(Modifier.fillMaxWidth().padding(vertical = 18.dp), verticalAlignment = Alignment.CenterVertically) {
                     Words(
                         "Your playlists",
-                        "Bring playlists in from a file or a public playlist's link (Spotify, Apple Music, M3U, CSV, AETHER's own), or keep every one of yours, and your liked songs, in one AETHER file. Nothing is ever doubled.",
+                        "Bring playlists in from a file or a public playlist's link (Spotify, Apple Music, M3U, CSV, NADUU's own), or keep every one of yours, and your liked songs, in one NADUU file. Nothing is ever doubled.",
                         Modifier.weight(1f),
                     )
                     Spacer(Modifier.width(16.dp))
@@ -356,13 +356,13 @@ fun SettingsScreen() {
                 if (container.updates.looksByItself) {
                     Toggle(
                         "Look for updates",
-                        "When AETHER opens, it asks GitHub, at most every few hours, whether there's a newer release, and offers it. Nothing about you goes with the question. The update is checked against the release and signed like your AETHER before Android is asked to install it.",
+                        "When NADUU opens, it asks GitHub, at most every few hours, whether there's a newer release, and offers it. Nothing about you goes with the question. The update is checked against the release and signed like your NADUU before Android is asked to install it.",
                         updatesAutomatic,
                     ) { container.updates.setAutomatic(!updatesAutomatic) }
                 }
                 Row(Modifier.fillMaxWidth().padding(vertical = 18.dp), verticalAlignment = Alignment.CenterVertically) {
                     Words(
-                        "AETHER ${container.updates.version}",
+                        "NADUU ${container.updates.version}",
                         if (container.updates.looksByItself) "The version on this phone." else "A test build: it looks for updates only when asked, and a release installs from GitHub.",
                         Modifier.weight(1f),
                     )
@@ -374,18 +374,18 @@ fun SettingsScreen() {
         }
         item {
             Section("X", "Privacy") {
-                Paragraph("AETHER has no analytics and no accounts. Your likes, playlists and history stay on this phone. The only requests it makes are the ones that load pages and play music; if you leave them on, the ones for timed lyrics, song video, artist and album art, and a newer AETHER; and, when you paste a playlist's link to bring it in, the one for that playlist's public page, asked for as AETHER. The music on the phone is read on the phone.")
+                Paragraph("NADUU has no analytics and no accounts. Your likes, playlists and history stay on this phone. The only requests it makes are the ones that load pages and play music; if you leave them on, the ones for timed lyrics, song video, artist and album art, and a newer NADUU; and, when you paste a playlist's link to bring it in, the one for that playlist's public page, asked for as NADUU. The music on the phone is read on the phone.")
             }
         }
         item {
             Section("XI", "About") {
                 Spacer(Modifier.height(16.dp))
-                Txt("AETHER ${container.updates.version}", Type.TitleSmall)
-                // What went wrong last time AETHER closed by itself: kept on the phone, sent only if you send it.
+                Txt("NADUU ${container.updates.version}", Type.TitleSmall)
+                // What went wrong last time NADUU closed by itself: kept on the phone, sent only if you send it.
                 var crash by remember { mutableStateOf(app.aether.CrashNote.read(context)) }
                 crash?.let { note ->
                     Row(Modifier.fillMaxWidth().padding(vertical = 18.dp), verticalAlignment = Alignment.CenterVertically) {
-                        Words("AETHER closed by itself", "What went wrong is kept on this phone. Share it with whoever makes AETHER, if you like; nothing is sent otherwise.", Modifier.weight(1f))
+                        Words("NADUU closed by itself", "What went wrong is kept on this phone. Share it with whoever makes NADUU, if you like; nothing is sent otherwise.", Modifier.weight(1f))
                         Spacer(Modifier.width(12.dp))
                         Column(horizontalAlignment = Alignment.End, verticalArrangement = Arrangement.spacedBy(8.dp)) {
                             GlassPill("Share", small = true, onClick = {
@@ -466,8 +466,8 @@ private fun AddedSource(
             wantsLossless && !output.capable -> "$host. It asks to be used only with an output that carries lossless audio: wired or USB headphones, HDMI, or Bluetooth on LDAC, LHDC or aptX Lossless. " +
                 when {
                     output.bluetoothCodec != null -> "Your headphones are on ${output.bluetoothCodec}, so it waits."
-                    output.bluetoothCodecUnknown && !nearbyGranted -> "Android tells AETHER your headphones' codec only with Nearby devices."
-                    output.needsCompanion -> "Android names your headphones' codec only to an app it knows them by: allow AETHER once, and it can tell when they play over LDAC."
+                    output.bluetoothCodecUnknown && !nearbyGranted -> "Android tells NADUU your headphones' codec only with Nearby devices."
+                    output.needsCompanion -> "Android names your headphones' codec only to an app it knows them by: allow NADUU once, and it can tell when they play over LDAC."
                     output.bluetoothCodecUnknown -> "Android hasn't named your headphones' codec yet: it does when they connect."
                     else -> "None is connected, so it waits."
                 } + (companionTrouble?.let { " ($it)" }.orEmpty())

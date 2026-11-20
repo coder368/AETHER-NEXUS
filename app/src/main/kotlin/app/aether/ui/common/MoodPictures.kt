@@ -5,7 +5,7 @@ import app.aether.R
 
 /**
  * The photograph a mood or genre's tile shows. The catalogue gives these tiles a name and a colour;
- * AETHER has no use for the colour and gives each a picture of its own, already in black and white.
+ * NADUU has no use for the colour and gives each a picture of its own, already in black and white.
  *
  * Going by the name is the only way: a tile's address is opaque, and its name is all that says what
  * it is. A name with no picture of its own (a new mood, or the catalogue in another language) borrows

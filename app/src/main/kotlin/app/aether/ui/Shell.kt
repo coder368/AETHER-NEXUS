@@ -309,7 +309,7 @@ fun Shell() {
         // A pull keeps the window's top edge under the finger.
         player.travel = if (grows) window::travel else null
     }
-    // A newer AETHER is offered on a sheet over the room, never over a song being listened to: one that
+    // A newer NADUU is offered on a sheet over the room, never over a song being listened to: one that
     // turns up while Now Playing is open waits for it to close.
     val update = rememberDragState()
     val updateShown by container.updates.shown.collectAsStateWithLifecycle()
@@ -320,7 +320,7 @@ fun Shell() {
     val updateState by container.updates.state.collectAsStateWithLifecycle()
     val offered = (updateState as? app.aether.update.UpdateState.Offer)?.release?.version?.toString()
     LaunchedEffect(offered) {
-        if (offered != null && player.visible) keep.note("AETHER $offered is out")
+        if (offered != null && player.visible) keep.note("NADUU $offered is out")
     }
 
     AutoQueue(actions)
@@ -674,7 +674,7 @@ private fun BoxScope.DayCorner(nav: Navigator, arrival: Arrival, statusTop: Dp, 
     )
 }
 
-/** The day's capsule itself: a small capsule of grey glass with AETHER's cross of light and the day in small grey capitals. */
+/** The day's capsule itself: a small capsule of grey glass with NADUU's cross of light and the day in small grey capitals. */
 @Composable
 internal fun DayCapsule(modifier: Modifier = Modifier, backdrop: Backdrop? = LocalGlassBackdrop.current) {
     val day = remember { dayLine(LocalDate.now()) }

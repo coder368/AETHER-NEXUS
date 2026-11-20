@@ -43,8 +43,8 @@ import app.aether.core.designsystem.theme.Type
 import app.aether.ytmusic.WebSession
 
 /**
- * Signing in to YouTube Music on Google's own page (after PODIUM's). AETHER never sees or keeps the
- * password: the page is Google's, and two-step checks work as in a browser. What AETHER keeps is the
+ * Signing in to YouTube Music on Google's own page (after PODIUM's). NADUU never sees or keeps the
+ * password: the page is Google's, and two-step checks work as in a browser. What NADUU keeps is the
  * session the page leaves behind, sealed with the phone's Keystore ([app.aether.core.data.Account]).
  *
  * The web view is shut tight: https only, only Google's and YouTube's own hosts (regional Google
@@ -68,7 +68,7 @@ class SignInActivity : ComponentActivity() {
                     GlassPill("Cancel", onClick = { finish() }, small = true)
                 }
                 Txt(
-                    "You sign in on Google's own page. AETHER never sees your password; it keeps only the session, sealed on this phone.",
+                    "You sign in on Google's own page. NADUU never sees your password; it keeps only the session, sealed on this phone.",
                     Type.Meta,
                     color = Ink.Grey,
                     modifier = Modifier.padding(horizontal = 20.dp).padding(bottom = 10.dp),
@@ -86,7 +86,7 @@ class SignInActivity : ComponentActivity() {
         }
     }
 
-    // Google's sign-in page needs JavaScript; nothing of AETHER's is exposed to it.
+    // Google's sign-in page needs JavaScript; nothing of NADUU's is exposed to it.
     @SuppressLint("SetJavaScriptEnabled")
     private fun page(context: Context): WebView = WebView(context).apply {
         val view = this

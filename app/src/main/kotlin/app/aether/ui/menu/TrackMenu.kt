@@ -198,7 +198,7 @@ private fun Entry(glyph: Glyph?, label: String, value: String? = null, onClick: 
     Box(Modifier.fillMaxWidth().height(0.5.dp).background(Ink.Hairline))
 }
 
-// --- The sleep timer (BitChord's picker, in AETHER's face) ------------------------------------------
+// --- The sleep timer (BitChord's picker, in NADUU's face) ------------------------------------------
 
 private enum class SleepPage { Picker, Custom }
 

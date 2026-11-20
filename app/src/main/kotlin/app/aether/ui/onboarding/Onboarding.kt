@@ -90,7 +90,7 @@ import app.aether.ui.common.LocalContainer
 import kotlinx.coroutines.delay
 
 /**
- * The welcome's wordmark: Aether, signed in the script, the size the boot film's resolves to, with
+ * The welcome's wordmark: NADUU, signed in the script, the size the boot film's resolves to, with
  * a faint halo of its own light so it stands forward of the dark water.
  */
 val MastheadStyle = Type.Inscription.copy(fontSize = 68.sp, lineHeight = 76.sp, shadow = Shadow(Color.White.copy(alpha = 0.24f), blurRadius = 38f))

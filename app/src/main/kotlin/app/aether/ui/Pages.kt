@@ -286,7 +286,7 @@ private fun Page(
             flight.ended(page)
         }
     }
-    // The system's back gesture, on a page above its room's first: AETHER's own transition follows the
+    // The system's back gesture, on a page above its room's first: NADUU's own transition follows the
     // thumb, as iOS's swipe back does (the page slides away, the one beneath shows through), and lets go
     // either way at the thumb's speed. Android's own back animation never runs over it; at a room's first
     // page there's nothing here to go back to, and the gesture is Android's, leaving the app. Before the
@@ -411,7 +411,7 @@ private fun anyLanded(pages: List<PageEntry>): Boolean {
 private const val Rest = 0.0005f
 
 /**
- * Whether Android's back gesture drives AETHER's own transitions as the thumb moves. Off, the gesture
+ * Whether Android's back gesture drives NADUU's own transitions as the thumb moves. Off, the gesture
  * runs the same transitions when it's let go (and Android still plays nothing of its own over them).
  */
 private const val PredictiveBack = true

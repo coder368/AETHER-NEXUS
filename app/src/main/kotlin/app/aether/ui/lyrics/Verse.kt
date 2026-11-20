@@ -1,6 +1,6 @@
 // Ported from BitChord's lyrics panel (sharedUi/.../player/PlayerLyrics.kt, GPL-3.0; its sweep after
 // binimum's am-lyrics): its drawing, timings and falloff as BitChord has them, set in the book serif,
-// and moving on AETHER's springs where BitChord runs its 400 ms curve.
+// and moving on NADUU's springs where BitChord runs its 400 ms curve.
 package app.aether.ui.lyrics
 
 import android.os.Build
@@ -319,7 +319,7 @@ internal fun Verse(
 }
 
 /**
- * The song's time, frame by frame while it plays (AETHER's clock, leaning onto the player's reports),
+ * The song's time, frame by frame while it plays (NADUU's clock, leaning onto the player's reports),
  * as state read only where it's drawn. Paused, it follows a seek without asking the screen for frames.
  */
 @Composable

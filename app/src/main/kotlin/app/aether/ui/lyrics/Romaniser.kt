@@ -7,7 +7,7 @@ import app.aether.core.lyrics.Scripts
 
 /**
  * Words in another script given in Latin letters, worked out on the phone: nothing is sent anywhere
- * (BitChord and LastWave ask Google Translate for this; AETHER asks no one).
+ * (BitChord and LastWave ask Google Translate for this; NADUU asks no one).
  *
  * - **Korean**, in the Revised Romanization of Korean as it's said, not letter by letter: a syllable's
  *   final consonant carries over to the next ("먹어" is meogeo), meets the next as speech meets it

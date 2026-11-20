@@ -175,7 +175,7 @@ private suspend fun dotsBetween(context: Context, from: Int, to: Int, box: IntSi
             a.recycle()
             b.recycle()
         }
-    }.onFailure { Log.w("AETHER", "Dot morph unavailable", it) }.getOrNull()
+    }.onFailure { Log.w("NADUU", "Dot morph unavailable", it) }.getOrNull()
 }
 private val StatuePrint = ArtTreatment.Halftone(dotDp = 2.3f, angle = 0.6f, contrast = 1.45f)
 

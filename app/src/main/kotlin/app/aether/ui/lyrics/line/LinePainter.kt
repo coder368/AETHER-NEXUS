@@ -11,7 +11,7 @@ import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.graphics.toArgb
 
 /**
- * The Continuous line palette, in AETHER's black and white: a black sheet and white ink, with no
+ * The Continuous line palette, in NADUU's black and white: a black sheet and white ink, with no
  * colour of its own. Every ink is opaque (quieter lines are white mixed toward the paper, not
  * transparent) so overlapping segments never bead.
  */

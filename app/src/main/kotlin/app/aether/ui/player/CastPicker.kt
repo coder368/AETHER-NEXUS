@@ -1,6 +1,6 @@
 // After BitChord's CastDialog (app/.../ui/components/CastDialog.kt, kushagrasinghx/BitChord; GPL-3.0):
 // its live list and its rules (scanning only while it's open, closing itself once the TV chosen has
-// come up), in AETHER's face.
+// come up), in NADUU's face.
 package app.aether.ui.player
 
 import androidx.compose.foundation.background
