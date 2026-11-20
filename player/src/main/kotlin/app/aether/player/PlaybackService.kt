@@ -183,6 +183,7 @@ class PlaybackService : MediaLibraryService() {
 
     /** A copy found mid-song that couldn't be carried over to then: the song goes over at its next pause or seek. */
     private var pendingCopy: MediaId? = null
+    private var shutdownRequested = false
 
     /** What's heard while a song is carried by its copy: the copy's format, not the first player's. */
     private var carried: HeardFormat? = null
@@ -340,16 +341,21 @@ class PlaybackService : MediaLibraryService() {
     override fun onGetSession(controllerInfo: MediaSession.ControllerInfo): MediaLibrarySession? = session
 
     override fun onTaskRemoved(rootIntent: Intent?) {
-        // A task swipe is an explicit request to leave: do not leave a foreground media service
-        // behind to make Android report NADUU as an active app. The queue is saved before stopping,
-        // so the next launch can restore it without keeping audio or a notification alive here.
+        // Keep stopWithTask unset for this service: Android must deliver this callback so the player,
+        // helper peer, notification, and service all shut down together on a Recents swipe.
+        if (shutdownRequested) return
+        shutdownRequested = true
         saveNow()
         speaker.pause()
         speaker.stop()
+        player.stop()
+        spare?.player?.stop()
+        stopForeground(true)
         stopSelf()
     }
 
     override fun onDestroy() {
+        stopForeground(true)
         if (Build.VERSION.SDK_INT >= 34) (bitPerfect as? BitPerfect)?.stop()
         saveNow()
         CastController.detach(cast)
