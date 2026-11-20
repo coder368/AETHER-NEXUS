@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.SpringSpec
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.awaitEachGesture
+import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.gestures.detectVerticalDragGestures
 import androidx.compose.foundation.layout.Box
@@ -43,6 +45,8 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.input.pointer.PointerEventPass
+import androidx.compose.ui.input.pointer.positionChange
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.input.pointer.util.VelocityTracker
 import androidx.compose.ui.platform.LocalDensity
@@ -65,6 +69,7 @@ import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import kotlin.math.abs
 
 /**
  * Something that opens by being dragged and closes the same way: a sheet, Now Playing, the lyrics.
@@ -180,6 +185,9 @@ class DragState internal constructor(
         animate(target, velocity)
     }
 
+    /** Finish a downward gesture as a close; upward fling projection must not reverse it. */
+    fun settleDownward(velocityY: Float) = animate(0f, -velocityY / distance())
+
     /**
      * Springs to [to]. With a finger's [velocity] (a release), from where the finger left it; without
      * one (a key, Back), from where its spring has it, at the speed it's going: a turn mid-flight keeps
@@ -240,17 +248,51 @@ object Pull {
  * included (velocity from Compose's tracker, which reads the last 100 ms of the finger). Give it to
  * whatever a sheet is pulled from, and to the sheet itself.
  */
-fun Modifier.dragsOpen(state: DragState): Modifier = this.pointerInput(state) {
-    val tracker = VelocityTracker()
-    detectVerticalDragGestures(
-        onDragStart = { tracker.resetTracking() },
-        onDragEnd = { if (!state.gestureBlocked) state.settle(tracker.calculateVelocity().y) },
-        onDragCancel = { if (!state.gestureBlocked) state.settle(0f) },
-    ) { change, dy ->
-        if (state.gestureBlocked) return@detectVerticalDragGestures
-        change.consume()
-        tracker.addPosition(change.uptimeMillis, change.position)
-        state.dragBy(dy)
+fun Modifier.dragsOpen(state: DragState, prioritizeDownward: Boolean = false): Modifier = this.pointerInput(state, prioritizeDownward) {
+    if (!prioritizeDownward) {
+        val tracker = VelocityTracker()
+        detectVerticalDragGestures(
+            onDragStart = { tracker.resetTracking() },
+            onDragEnd = { if (!state.gestureBlocked) state.settle(tracker.calculateVelocity().y) },
+            onDragCancel = { if (!state.gestureBlocked) state.settle(0f) },
+        ) { change, dy ->
+            if (state.gestureBlocked) return@detectVerticalDragGestures
+            change.consume()
+            tracker.addPosition(change.uptimeMillis, change.position)
+            state.dragBy(dy)
+        }
+        return@pointerInput
+    }
+
+    // Lyrics must win the down gesture over taps and nested scroll children. We inspect the Initial
+    // pass, claim only a clearly downward drag, and leave upward movement untouched for reading.
+    awaitEachGesture {
+        val down = awaitFirstDown(requireUnconsumed = false, pass = PointerEventPass.Initial)
+        val tracker = VelocityTracker().also { it.addPosition(down.uptimeMillis, down.position) }
+        var draggingDown = false
+        var totalX = 0f
+        var totalY = 0f
+        while (true) {
+            val event = awaitPointerEvent(PointerEventPass.Initial)
+            val change = event.changes.firstOrNull { it.id == down.id } ?: break
+            if (!change.pressed) {
+                if (draggingDown && !state.gestureBlocked) state.settleDownward(tracker.calculateVelocity().y)
+                break
+            }
+            val delta = change.positionChange()
+            tracker.addPosition(change.uptimeMillis, change.position)
+            totalX += delta.x
+            totalY += delta.y
+            if (!draggingDown && maxOf(abs(totalX), abs(totalY)) > viewConfiguration.touchSlop) {
+                if (totalY <= 0f || abs(totalX) > abs(totalY)) return@awaitEachGesture
+                draggingDown = true
+                if (!state.gestureBlocked) state.dragBy(totalY)
+            } else if (draggingDown && !state.gestureBlocked) {
+                change.consume()
+                state.dragBy(delta.y)
+            }
+            if (draggingDown) change.consume()
+        }
     }
 }
 

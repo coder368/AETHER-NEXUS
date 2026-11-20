@@ -477,7 +477,7 @@ fun NowPlaying(player: DragState, onClose: () -> Unit, menu: (@Composable () -> 
                             .fillMaxSize()
                             .graphicsLayer { translationY = (1f - lyricsPane.value.coerceIn(0f, 1f)) * screen }
                             .nestedScroll(lyricsScroll)
-                            .dragsOpen(lyricsPane),
+                            .dragsOpen(lyricsPane, prioritizeDownward = true),
                     ) { LyricsStage(track, lyricsPane, lyricsFollowing) }
                 }
             },
