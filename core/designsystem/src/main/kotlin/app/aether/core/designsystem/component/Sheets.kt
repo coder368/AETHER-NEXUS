@@ -286,6 +286,18 @@ fun rememberSheetScroll(state: DragState, pullsFirst: () -> Boolean = { false })
             }
             return Velocity.Zero
         }
+
+        // A scrollable child may consume the pre-fling while it is handing its remaining motion
+        // back through the parent. If the pane already owns the drag, it must still receive the
+        // release here; otherwise a halfway pull can be handed back to the child's scroll physics
+        // and snap the pane toward open instead of dismissing it.
+        override suspend fun onPostFling(consumed: Velocity, available: Velocity): Velocity {
+            if (state.holding) {
+                state.settle(available.y)
+                return available
+            }
+            return Velocity.Zero
+        }
     }
 }
 
@@ -372,4 +384,3 @@ fun DragSheet(state: DragState, height: Dp = 620.dp, onClosed: () -> Unit = {}, 
         }
     }
 }
-

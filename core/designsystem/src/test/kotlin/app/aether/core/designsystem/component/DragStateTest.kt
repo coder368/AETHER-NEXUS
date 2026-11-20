@@ -106,4 +106,13 @@ class DragStateTest {
         open()
         assertTrue(sheet.visible)
     }
+
+    @Test fun `halfway downward drag settles closed`() {
+        open()
+        sheet.dragBy(sheet.travelPx * 0.5f)
+        sheet.settle(0f)
+        runOut()
+        assertFalse(sheet.visible)
+        assertEquals(0f, sheet.value)
+    }
 }
